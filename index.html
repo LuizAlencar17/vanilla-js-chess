@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vanilla JS Chess — modular</title>
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- BOARD -->
+  <div id="boardWrap" aria-label="Chessboard">
+    <div id="board"></div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="ui">
+    <div class="row">
+      <button id="newBtn">New Game</button>
+      <button id="flipBtn" class="secondary">Flip Board</button>
+    </div>
+
+    <div class="row">
+      <label for="difficulty">AI difficulty:</label>
+      <input id="difficulty" type="range" min="0" max="4" step="1" value="2" />
+      <span id="diffLabel">2</span>
+    </div>
+
+    <div class="row">
+      <label><input id="aiPlaysBlack" type="checkbox" checked> AI plays Black (top)</label>
+    </div>
+
+    <div id="status">White to move</div>
+
+    <div>
+      <div class="label">FEN</div>
+      <input id="fenIn" class="fen" value="" />
+      <div class="row">
+        <button id="loadFen" class="secondary">Load FEN</button>
+        <button id="copyFen" class="secondary">Copy FEN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- App script -->
+  <script src="chess.js"></script>
+</body>
+</html>

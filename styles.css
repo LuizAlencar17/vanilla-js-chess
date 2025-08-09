@@ -1,0 +1,122 @@
+/* ============================
+   Global look & feel
+   ============================ */
+:root {
+  --sq: 72px;             /* board square size */
+  --light: #f0d9b5;       /* light squares */
+  --dark:  #b58863;       /* dark squares  */
+  --hl: rgba(255,215,0,.35); /* move hint */
+  --sel: rgba(80,180,255,.45); /* selection highlight */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  background: #111;
+  color: #eee;
+}
+
+/* ============================
+   Board & Squares
+   ============================ */
+#boardWrap {
+  position: relative;
+  width: calc(var(--sq) * 8);
+  height: calc(var(--sq) * 8);
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#board {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+/* Static grid cells (under pieces) */
+.sq { position: relative; }
+.sq.light { background: var(--light); }
+.sq.dark  { background: var(--dark); }
+
+/* Dots on target squares */
+.sq .dot {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--hl);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Selected-from square overlay */
+.sq.sel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sel);
+}
+
+/* ============================
+   Pieces (absolutely positioned)
+   ============================ */
+.piece {
+  position: absolute;
+  width: var(--sq);
+  height: var(--sq);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--sq) * 0.7);
+  line-height: 1;
+  user-select: none;
+  cursor: grab;
+
+  /* Smooth movement */
+  transition: transform 180ms ease-in-out, opacity 120ms ease-in-out;
+  will-change: transform;
+
+  text-shadow: 0 1px 0 rgba(0,0,0,.3);
+}
+
+.piece.white { color: #fff;  filter: drop-shadow(0 2px 1px rgba(0,0,0,.35)); }
+.piece.black { color: #111;  filter: drop-shadow(0 2px 1px rgba(255,255,255,.08)); }
+
+/* ============================
+   Right panel / controls
+   ============================ */
+#ui { width: 300px; display: flex; flex-direction: column; gap: 14px; }
+.row { display: flex; gap: 12px; align-items: center; }
+
+button {
+  background: #2b84ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button.secondary { background: #444; }
+
+input[type="range"] { width: 180px; }
+
+.fen {
+  width: 100%;
+  background: #222;
+  color: #ddd;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+#status { font-weight: 600; }
+.label { margin: 6px 0 4px; }
